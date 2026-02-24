@@ -1,4 +1,5 @@
 
+
 import './App.css'
 import Home from './pages/home/Home'
 import Login from './pages/login/login'
@@ -11,7 +12,10 @@ function App() {
     <div className='p-4 flex justify-center items-center h-screen '>
       {/* <Login></Login> */}
       {/* <Signup/> */}
-      <Home/>
+      {/* <Home/> */}
+
+      
+
     </div>
   )
 }
