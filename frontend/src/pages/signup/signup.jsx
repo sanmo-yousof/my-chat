@@ -1,9 +1,34 @@
 import React, { useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import useSignup from "../../hook/useSignup";
 
 const Signup = () => {
   const [showPass, setShowPass] = useState(false);
   const [cshowPass, setcShowPass] = useState(false);
+  const {signUp,loading} = useSignup()
+
+  const handleChnage = (e) => {
+      const {name,value} = e.target;
+      setFormData((prev) => ({
+        ...prev,
+        [name]:value,
+      }));
+  };
+
+  const [formData,setFormData] = useState({
+    fullName:"",
+    userName:"",
+    password:"",
+    confirmPassword:"",
+    gender:""
+  });
+
+  const handleSignUp = async(e) => {
+    e.preventDefault();
+    await signUp(formData);
+    
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -23,18 +48,19 @@ const Signup = () => {
           Sign up
         </h1>
 
-        <form className="mt-4 space-y-4">
+        <form onSubmit={handleSignUp} className="mt-4 space-y-4">
           {/* Grid for 2 columns on md and lg */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Name */}
             <div>
               <label className="label mb-1">
-                <span className="text-base label-text text-white">
-                  Name *
-                </span>
+                <span className="text-base label-text text-white">Name *</span>
               </label>
               <input
                 type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChnage}
                 placeholder="Enter Name"
                 className="w-full input input-bordered h-10 bg-white/20 text-white placeholder:text-gray-300 border border-white/20 focus:border-gray-200 focus:outline-none focus:ring-0 focus:shadow-none"
               />
@@ -47,6 +73,9 @@ const Signup = () => {
               </label>
               <input
                 type="text"
+                name="userName"
+                value={formData.userName}
+                onChange={handleChnage}
                 placeholder="Enter username"
                 className="w-full input input-bordered h-10 bg-white/20 text-white placeholder:text-gray-300 border border-white/20 focus:border-gray-200 focus:outline-none focus:ring-0 focus:shadow-none"
               />
@@ -62,6 +91,9 @@ const Signup = () => {
               <div className="relative">
                 <input
                   type={showPass ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChnage}
                   placeholder="Enter password"
                   className="w-full input pr-10 input-bordered h-10 bg-white/20 text-white placeholder:text-gray-300 border border-white/20 focus:border-gray-200 focus:outline-none focus:ring-0 focus:shadow-none"
                 />
@@ -82,6 +114,9 @@ const Signup = () => {
               <div className="relative">
                 <input
                   type={cshowPass ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChnage}
                   placeholder="Confirm password"
                   className="w-full input pr-10 input-bordered h-10 bg-white/20 text-white placeholder:text-gray-300 border border-white/20 focus:border-gray-200 focus:outline-none focus:ring-0 focus:shadow-none"
                 />
@@ -94,47 +129,51 @@ const Signup = () => {
               </div>
             </div>
             <div className="">
-  <label className="label mb-1">
-    <span className="text-base label-text text-white">Gender *</span>
-  </label>
+              <label className="label mb-1">
+                <span className="text-base label-text text-white">
+                  Gender *
+                </span>
+              </label>
 
-  <div className="flex gap-4">
-    {/* Male */}
-    <label className="cursor-pointer label">
-      <input
-        type="radio"
-        name="gender"
-        value="male"
-        className="radio border-white checked:bg-gray-300"
-      />
-      <span className="ml-1 text-white">Male</span>
-    </label>
+              <div className="flex gap-4">
+                {/* Male */}
+                <label className="cursor-pointer label">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="male"
+                    checked = {formData.gender === 'male'}
+                    onChange={handleChnage}
+                    className="radio border-white checked:bg-gray-300"
+                  />
+                  <span className="ml-1 text-white">Male</span>
+                </label>
 
-    {/* Female */}
-    <label className="cursor-pointer label">
-      <input
-        type="radio"
-        name="gender"
-        value="female"
-        className="radio border-white checked:bg-gray-300"
-      />
-      <span className="ml-1 text-white">Female</span>
-    </label>
-
-
-  </div>
-</div>
+                {/* Female */}
+                <label className="cursor-pointer label">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="female"
+                    checked={formData.gender === "female"}
+                    onChange={handleChnage}
+                    className="radio border-white checked:bg-gray-300"
+                  />
+                  <span className="ml-1 text-white">Female</span>
+                </label>
+              </div>
+            </div>
           </div>
 
           {/* Button */}
-          <button className="btn w-full mt-4 btn-secondary">Sign Up</button>
+          <button disabled={loading} type="submit" className="btn w-full mt-4 btn-secondary">{loading ? "Singing" : "Sign Up"}</button>
 
           {/* Login link */}
           <div className="text-sm font-medium text-gray-400 text-center mt-2">
             Already have an Account?{" "}
-            <a href="/login" className="underline text-white">
+            <Link to={"/login"} className="underline text-white">
               Login
-            </a>
+            </Link>
           </div>
         </form>
       </div>

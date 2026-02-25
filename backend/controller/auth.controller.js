@@ -58,7 +58,6 @@ export const singUp = async (req, res) => {
 };
 
 // login 
-
 export const login = async (req, res) => {
   try {
     const { userName, password } = req.body;
@@ -97,7 +96,6 @@ export const login = async (req, res) => {
 };
 
 // log out 
-
 export const logOut = (req, res) => {
   try{
     res.cookie("jwt","",{maxAge:0});
@@ -107,3 +105,14 @@ export const logOut = (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+// me 
+export const getMe = (req,res) => {
+  try{
+    res.status(200).json(req.user);
+  }catch (error){
+    console.log("Error in getMe controller", error.message);
+    res.status(500).json({error:"Internal Server Error"})
+  }
+}

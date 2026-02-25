@@ -4,8 +4,14 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/router.jsx";
 
+import { Toaster } from "react-hot-toast";
+import AuthContextProvider from "./context/AuthContext.jsx";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+      <Toaster position="top-right" reverseOrder={false} />
+    </AuthContextProvider>
   </StrictMode>,
 );

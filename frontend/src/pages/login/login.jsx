@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import {Link} from "react-router-dom"
 
 
 const Login = () => {
@@ -55,7 +56,7 @@ const Login = () => {
           </div>
           <button className="btn w-full mt-4 btn-secondary">Login</button>
           <div className="text-sm font-medium text-gray-400">
-            <span>Dont't have an Account ?</span><a href="/sign-up"> Sign Up </a>
+            <span>Dont't have an Account ?</span><Link className="underline text-white" to={"/sign-up"}> Sign Up </Link>
           </div>          
         </form>
       </div>

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Sidebar from "../../components/sidebar/Sidebar";
 import MessageContainer from "../../components/messagebox/MessageContainer";
+import useAuth from "../../hook/useAuth";
 
 const Home = () => {
+  const {user} = useAuth();
+  console.log(user)
 
   const [selectedChat, setSelectedChat] = useState(null);
   console.log(selectedChat)
