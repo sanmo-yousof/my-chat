@@ -24,7 +24,7 @@ export const singUp = async (req, res) => {
     }
 
     if (gender !== "male" && gender !== "female") {
-      return res.status(400).json({ error: "gender will be male,female" });
+      return res.status(400).json({ error: "gender will be male, female" });
     }
 
     const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
@@ -65,12 +65,12 @@ export const login = async (req, res) => {
     if (!userName || !password) {
       return res
         .status(400)
-        .json({ message: "userName and password is required" });
+        .json({ error: "userName and password is required" });
     };
 
     const user = await User.findOne({ userName });
     if (!user) {
-      return res.status(401).json({ message: "Username is incorrect!" });
+      return res.status(401).json({ error: "Username is incorrect!" });
     };
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -78,7 +78,7 @@ export const login = async (req, res) => {
       user.password || "",
     );
     if (!isPasswordCorrect) {
-      return res.status(401).json({ message: "Password is incorrect" });
+      return res.status(401).json({ error: "Password is incorrect" });
     };
 
     generateTokenAndSetCookie(user._id,res);

@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
-  const {setUser} = useAuth();
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const login = async ({userName, password}) => {
+  const login = async ({ userName, password }) => {
+    const success = loginValidation(userName, password);
+    if (!success) return;
     setLoading(true);
     try {
       const res = await api.post("/auth/login", { userName, password });
@@ -21,10 +23,10 @@ const useLogin = () => {
       setUser(userRes.data);
 
       toast.success("Login Success!");
-      navigate("/message",{replace:true});
+      navigate("/message", { replace: true });
     } catch (error) {
-        console.log(error)
-      toast.error(error.response?.data?.error || error.response?.data?.message || error.message);
+      console.log(error);
+      toast.error(error.response?.data?.error || error.message);
     } finally {
       setLoading(false);
     }
@@ -34,3 +36,12 @@ const useLogin = () => {
 };
 
 export default useLogin;
+
+const loginValidation = (userName, password) => {
+  if (!userName || !password) {
+    toast.error("All fill is required!");
+    return false;
+  }
+
+  return true;
+};

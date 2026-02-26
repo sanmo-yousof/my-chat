@@ -1,8 +1,11 @@
 import React from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoCall, IoLogOutOutline, IoVideocam } from "react-icons/io5";
+import useConversation from "../../zustand/useConversation";
 
-const MessageHeader = ({setSelectedChat}) => {
+const MessageHeader = () => {
+  const {selectedConversation,setSelectedConversation} = useConversation();
+  
 
   return (
     <div className="md:py-5 md:px-6 p-3 border-b border-white/20  bg-white/10  rounded-t-xl flex items-center justify-between gap-2">
@@ -11,17 +14,17 @@ const MessageHeader = ({setSelectedChat}) => {
         <FiArrowLeft
           size={22}
           className="cursor-pointer"
-          onClick={() => setSelectedChat(null)}
+          onClick={() => setSelectedConversation(null)}
         />
       </div>
         <div className="flex items-center gap-2">
         <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={selectedConversation?.profilePic || "/profilePlaceholder.png"}
           className="md:h-12 md:w-12 w-8 h-8 rounded-full"
-          alt="profile"
+          alt={selectedConversation?.fullName || "profile"}
         />
         <div>
-          <h3 className="font-medium text-sm md:text-base text-gray-100">My Name</h3>
+          <h3 className="font-medium text-sm md:text-base text-gray-100">{selectedConversation?.fullName}</h3>
           <p className="md:text-sm text-xs font-medium text-gray-300">Active Now</p>
         </div>
       </div>

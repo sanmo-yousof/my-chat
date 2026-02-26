@@ -1,37 +1,33 @@
 import React from "react";
+import useConversation from "../../zustand/useConversation";
 
-const UserCard = ({ setSelectedChat,selectedChat }) => {
-  const handleSelectedChat = (selectedUser) => {
-    setSelectedChat(selectedUser)
-  }
+const UserCard = ({ user,lastIndx }) => {
+  const {selectedConversation,setSelectedConversation} = useConversation();
+  
   return (
     <>
-      <div onClick={() => handleSelectedChat(1)} className={`p-2 ${selectedChat === 1 && "bg-white/20"} cursor-pointer  hover:bg-white/20 duration-200 rounded-md flex items-center gap-2`}>
+      <div
+        onClick={() => setSelectedConversation(user)}
+        className={`p-2 ${selectedConversation?._id === user?._id && "bg-white/20"} cursor-pointer  hover:bg-white/20 duration-200  flex items-center gap-2`}
+      >
         <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={user?.profilePic || "/profilePlaceholder.png"}
           className="h-12 w-12 rounded-full"
-          alt="profile"
+          alt={user?.fullName || "profile"}
         />
         <div>
-          <h3 className="font-medium text-base text-gray-300">My Name</h3>
-          <p className="text-sm font-medium text-gray-400">
-            Me : Hello how are you !
+          <h3 className="font-medium text-base text-gray-300">
+            {" "}
+            {user?.fullName.length > 18
+              ? `${user.fullName.slice(0, 18)}...`
+              : user.fullName}
+          </h3>
+          <p className="text-sm font-medium text-gray-500">
+            Me : <span className="text-gray-400"> Hello how are you !</span>
           </p>
         </div>
       </div>
-      <div onClick={() => handleSelectedChat(2)}  className={`p-2 ${selectedChat === 2 && "bg-white/20"} cursor-pointer  hover:bg-white/20 duration-200 rounded-md flex items-center gap-2`}>
-        <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          className="h-12 w-12 rounded-full"
-          alt="profile"
-        />
-        <div>
-          <h3 className="font-medium text-base text-gray-300">My Name</h3>
-          <p className="text-sm font-medium text-gray-400">
-            Me : Hello how are you !
-          </p>
-        </div>
-      </div>
+      {!lastIndx && <div className="border-t border-white/20 " />}
     </>
   );
 };

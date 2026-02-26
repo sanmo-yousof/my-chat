@@ -1,21 +1,28 @@
 import React from "react";
 import { IoLogOutOutline } from "react-icons/io5";
 import useLogOut from "../../hook/useLogOut";
+import useAuth from "../../hook/useAuth";
 
 const Footer = () => {
   const { loading, logOut } = useLogOut();
+  const { user } = useAuth();
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex gap-2">
         <img
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={user?.profilePic || "/profilePlaceholder.png"}
           className="w-8 h-8 rounded-full"
-          alt="profile"
+          alt={user?.fullNmae || "profile"}
         />
         <div>
-          <h3 className="font-medium text-sm text-gray-200">My Name</h3>
-          <h5 className="font-light text-xs text-gray-300">username</h5>
+          <h3 className="font-medium text-sm text-gray-200">
+            {" "}
+            {user?.fullName.length > 18
+              ? `${user.fullName.slice(0, 18)}...`
+              : user.fullName}
+          </h3>
+          <h5 className="font-light text-xs text-gray-300">{user?.userName}</h5>
         </div>
       </div>
       <button

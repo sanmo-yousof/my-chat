@@ -7,7 +7,7 @@ const PublicRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-sm" />
+        <span className="loading loading-spinner text-white loading-sm" />
       </div>
     );
   }
