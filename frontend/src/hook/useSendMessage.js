@@ -12,7 +12,7 @@ const useSendMessage = () => {
         setLoading(true);
         try {
             const res = await api.post(`/message/send/${selectedConversation._id}`,{message});
-            setMessages([...messages,res.data.message]);
+            setMessages([...messages,res.data]);
             console.log(res.data);
             
         } catch (error) {

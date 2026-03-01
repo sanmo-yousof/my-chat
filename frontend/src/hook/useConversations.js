@@ -5,6 +5,7 @@ import api from "../lib/axios";
 const useConversation = () => {
   const [loading, setLoading] = useState(false);
   const [conversation, setConversation] = useState([]);
+  const [filteredConversation, setFilteredConversation] = useState([]);
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -13,6 +14,7 @@ const useConversation = () => {
         const res = await api.get("/users");
         console.log(res.data);
         setConversation(res.data);
+        setFilteredConversation(res.data);
       } catch (error) {
         toast.error(error.response?.data?.error || error.message);
       } finally {
@@ -23,7 +25,8 @@ const useConversation = () => {
     fetchConversations();
   }, []);
 
-  return { loading, conversation };
+  return { loading, conversation,filteredConversation,
+  setFilteredConversation };
 };
 
 export default useConversation;

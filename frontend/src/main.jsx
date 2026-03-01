@@ -6,11 +6,14 @@ import { router } from "./routes/router.jsx";
 
 import { Toaster } from "react-hot-toast";
 import AuthContextProvider from "./context/AuthContext.jsx";
+import { SocketProvider } from "./context/SocketContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <SocketProvider>
+        <RouterProvider router={router} />
+      </SocketProvider>
       <Toaster position="top-right" reverseOrder={false} />
     </AuthContextProvider>
   </StrictMode>,

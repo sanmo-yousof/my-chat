@@ -6,10 +6,11 @@ import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import connectMongoDB from "./db/connectToMongoDB.js";
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
 
-const app = express();
+
 const port = process.env.PORT || 5000;
 
 // middleware 
@@ -33,7 +34,7 @@ app.get("/", (req, res) => {
   res.send("Chat app is running!");
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   connectMongoDB();
   console.log(`Server is running on port ${port}`);
 });

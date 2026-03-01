@@ -4,7 +4,8 @@ import Conversation from "./Conversation";
 import { IoLogOut, IoLogOutOutline } from "react-icons/io5";
 import Footer from "./Footer";
 
-const Sidebar = ({ setSelectedChat,selectedChat}) => {
+const Sidebar = () => {
+ 
   return (
     <div
       className="
@@ -24,7 +25,7 @@ const Sidebar = ({ setSelectedChat,selectedChat}) => {
     >
       <SearchInput />
 
-      <Conversation setSelectedChat  = { setSelectedChat } selectedChat={selectedChat} />
+      <Conversation />
 
       <Footer/>
     </div>
