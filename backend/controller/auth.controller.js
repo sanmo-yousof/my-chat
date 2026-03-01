@@ -40,9 +40,9 @@ export const singUp = async (req, res) => {
       "D35400",
     ];
     const textColors = ["fff", "000", "f0f0f0", "333333", "eeeeee"];
-    const randomBgColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+    const randomBgColor = bgColors[Math.floor(Math.random() * bgColors?.length)];
     const randomTextColor =
-      textColors[Math.floor(Math.random() * textColors.length)];
+      textColors[Math.floor(Math.random() * textColors?.length)];
 
     // const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
     // const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${userName}`;

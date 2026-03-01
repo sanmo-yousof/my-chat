@@ -27,7 +27,7 @@ const Messages = () => {
           <span className="loading text-white loading-spinner loading-xs"></span>
         </div>
       )}
-      {!loading && messages.length === 0 && (
+      {!loading && messages?.length === 0 && (
         <div className="flex flex-col h-full justify-center items-center w-full">
           <div className="flex flex-col items-center mb-6 md:mb-8">
             {/* <img
@@ -60,7 +60,7 @@ const Messages = () => {
       )}
 
       <div className="space-y-4">
-        {!loading && messages.length > 0 && (
+        {!loading && messages?.length > 0 && (
           <div className="flex flex-col items-center mb-8">
             {/* <img
               src={
@@ -88,7 +88,7 @@ const Messages = () => {
         )}
 
         {!loading &&
-          messages.length > 0 &&
+          messages?.length > 0 &&
           messages.map((message) => (
             <div key={message._id} ref={lastMessageRef}>
               <Message message={message} />

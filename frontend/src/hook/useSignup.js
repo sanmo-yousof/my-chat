@@ -73,7 +73,7 @@ const handleInputErrors = ({
     return false;
   }
 
-  if (password.length < 6) {
+  if (password?.length < 6) {
     toast.error("Please must be at least 6 characters!");
     return false;
   }

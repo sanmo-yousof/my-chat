@@ -29,7 +29,7 @@ const UserCard = ({ user, lastIndx }) => {
         <div>
           <h3 className="font-medium text-base text-gray-300">
             {" "}
-            {user?.fullName.length > 18
+            {user?.fullName?.length > 18
               ? `${user.fullName.slice(0, 18)}...`
               : user.fullName}
           </h3>

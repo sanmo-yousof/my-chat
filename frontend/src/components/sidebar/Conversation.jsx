@@ -21,7 +21,7 @@ const Conversation = () => {
           <UserCard
             key={user._id}
             user={user}
-            lastIndx={indx === conversation.length - 1}
+            lastIndx={indx === conversation?.length - 1}
           />
         ))
       )}

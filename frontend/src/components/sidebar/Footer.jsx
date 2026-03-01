@@ -18,7 +18,7 @@ const Footer = () => {
         <div>
           <h3 className="font-medium text-sm text-gray-200">
             {" "}
-            {user?.fullName.length > 18
+            {user?.fullName?.length > 18
               ? `${user.fullName.slice(0, 18)}...`
               : user.fullName}
           </h3>
