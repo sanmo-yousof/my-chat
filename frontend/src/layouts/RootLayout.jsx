@@ -2,7 +2,6 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 
-
 const RootLayout = () => {
   const { user, loading } = useAuth();
   const location = useLocation();

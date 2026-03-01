@@ -9,6 +9,7 @@ import PublicRoute from "./PublicRoute";
 
 
 
+// routes/router.jsx
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -16,19 +17,13 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        index: true,
-        element: <Navigate to="/login" replace />,
-      },
-
-      {
-        path : "message",
-        element:(
+        path: "message",
+        element: (
           <PrivateRoute>
-            <Home/>
+            <Home />
           </PrivateRoute>
-        )
+        ),
       },
-
       {
         path: "login",
         element: (
@@ -37,7 +32,6 @@ export const router = createBrowserRouter([
           </PublicRoute>
         ),
       },
-
       {
         path: "sign-up",
         element: (
