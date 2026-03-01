@@ -14,14 +14,17 @@ dotenv.config();
 
 const port = process.env.PORT || 5000;
 
-const __dirname  = path.resolve();
+
 
 // middleware 
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://my-chat-gp1u.onrender.com"
+    ],
     credentials: true,
   }),
 );
@@ -34,11 +37,11 @@ app.use("/api/message", messageRoutes);
 app.use("/api/users", userRoutes);
 
 
-// serve frontend
-app.use(express.static(path.join(__dirname, "frontend", "dist")));
+const __dirname = path.resolve();
 
-// catch all routes (Express 5 compatible)
-app.use((req, res) => {
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
 

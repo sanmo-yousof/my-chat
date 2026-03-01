@@ -1,25 +1,14 @@
-// layouts/RootLayout.jsx
-import { Outlet, Navigate, useLocation } from "react-router-dom";
-import useAuth from "../hook/useAuth";
+import React from "react";
+import { Outlet } from "react-router-dom";
 
 const RootLayout = () => {
-  const { user, loading } = useAuth();
-  const location = useLocation();
-
-  if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <span className="loading loading-spinner text-white loading-sm"></span>
+  return (
+    <div>
+      <div className="p-4 flex justify-center items-center h-screen">
+        <Outlet />
       </div>
-    );
-  }
-
-  // If at root path, redirect based on auth status
-  if (location.pathname === "/") {
-    return <Navigate to={user ? "/message" : "/login"} replace />;
-  }
-
-  return <Outlet />;
+    </div>
+  );
 };
 
 export default RootLayout;
