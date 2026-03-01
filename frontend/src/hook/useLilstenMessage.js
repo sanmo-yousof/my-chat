@@ -1,44 +1,23 @@
-import useSocket from "./useSocket";
-import useConversation from "../zustand/useConversation";
-import { useEffect } from "react";
-import notificationSoundReceive from "../assets/sounds/sendmessage.mp3";
-import notificationSoundSend from "../assets/sounds/getmessage.mp3";
-import { useRef } from "react";
+
+import useSocket from './useSocket'
+import useConversation from '../zustand/useConversation'
+import { useEffect } from 'react';
+import notificationSound from '../assets/sounds/sendmessage.mp3'
 
 const useLilstenMessage = () => {
-  const { socket } = useSocket();
-  const { messages, setMessages } = useConversation();
+    const {socket} = useSocket();
+    const {messages,setMessages} = useConversation();
 
-  const audioReceive = useRef(null);
-  const audioSend = useRef(null);
+    useEffect(() => {
+        socket?.on("newMessage",(newMessage) => {
+            setMessages([...messages,newMessage])
+            const sound = new Audio(notificationSound);
+            sound.play()
+        })
 
-  useEffect(() => {
-    audioReceive.current = new Audio(notificationSoundReceive);
-    audioSend.current = new Audio(notificationSoundSend);
-  }, []);
+        return () => socket?.off("newMessage")
+    },[socket,messages,setMessages])
 
-  // Listen for incoming messages
-  useEffect(() => {
-    socket?.on("newMessage", (newMessage) => {
-      setMessages(prev => [...prev, newMessage]);
-
-      // play receive sound
-      if (audioReceive.current) {
-        audioReceive.current.play().catch(() => {});
-      }
-    });
-
-    return () => socket?.off("newMessage");
-  }, [socket, setMessages]);
-
-  // Function to play send sound
-  const playSendSound = () => {
-    if (audioSend.current) audioSend.current.play().catch(() => {});
-  };
-
-   return { playSendSound };
-
-  
 };
 
-export default useLilstenMessage;
+export default useLilstenMessage
