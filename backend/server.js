@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -12,6 +13,8 @@ dotenv.config();
 
 
 const port = process.env.PORT || 5000;
+
+const __dirname  = path.resolve();
 
 // middleware 
 app.use(express.json());
@@ -30,9 +33,20 @@ app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/users", userRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Chat app is running!");
+
+// serve frontend
+app.use(express.static(path.join(__dirname, "frontend", "dist")));
+
+// catch all routes (Express 5 compatible)
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
+
+
+
+// app.get("/", (req, res) => {
+//   res.send("Chat app is running!");
+// });
 
 server.listen(port, () => {
   connectMongoDB();

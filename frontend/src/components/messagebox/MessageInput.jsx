@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { HiPaperAirplane } from "react-icons/hi2";
 import useSendMessage from "../../hook/useSendMessage";
+import useLilstenMessage from "../../hook/useLilstenMessage";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
   const { loading, sendMessage } = useSendMessage();
+  const { playSendSound } = useLilstenMessage();
 
   const handleSendMessage = async(e) => {
     e.preventDefault();
     if (!message.trim() || loading) return;
 
     await sendMessage(message);
+    playSendSound()
     setMessage("");
   };
 
